@@ -6,8 +6,11 @@
 //  Copyright © 2018 Capgemini. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 class Image: NSObject {
+    var imageURL:String?
+    var titleDesc:String?
+    var imageTitle:String?
 
 }

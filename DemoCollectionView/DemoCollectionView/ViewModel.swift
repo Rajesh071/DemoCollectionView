@@ -1,5 +1,5 @@
 //
-//  GalleryClient.swift
+//  ViewModel.swift
 //  DemoCollectionView
 //
 //  Created by Test User 1 on 19/04/18.
@@ -9,5 +9,17 @@
 import UIKit
 
 class ViewModel: NSObject {
-    <#code#>
+    
+    @IBOutlet var moviesClient : ImageClient!
+    
+    var images : [Image]?
+    
+    func fetchData(completion:@escaping () -> ()){
+        
+        moviesClient.fetchImage { images in
+            self.images = images
+            completion()
+        }
+    }
+    
 }
