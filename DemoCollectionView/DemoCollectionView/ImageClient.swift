@@ -29,7 +29,6 @@ class ImageClient: NSObject {
                 print(error)
                 return
             }
-            // make sure we got data
             guard let responseData = data else {
                 print("Error: did not receive data")
                 return
@@ -40,7 +39,6 @@ class ImageClient: NSObject {
             guard let modifiedDataInUTF8Format = responseStrInISOLatin?.data(using: String.Encoding.utf8) else {
                 return
             }
-            // parse the result as JSON, since that's what the API provides
             do {
                 let metaDict = try JSONSerialization.jsonObject(with: modifiedDataInUTF8Format)
                 
@@ -53,9 +51,7 @@ class ImageClient: NSObject {
                 return
             }
         }
-        
         task.resume()
-        
     }
     
     

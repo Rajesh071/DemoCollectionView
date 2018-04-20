@@ -21,5 +21,14 @@ class ViewModel: NSObject {
             completion()
         }
     }
+    func noOfitemsInSection(section:Int) -> Int{
+        return images?.count ?? 0
+    }
     
+    func getModelAt(index:Int) -> Image {
+        if let image = images?[index] as Image? {
+            return image
+        }
+        return Image()
+    }
 }
