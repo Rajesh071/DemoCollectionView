@@ -10,6 +10,7 @@ import UIKit
 let kCornerRadius:CGFloat = 6.0
 let itemPerRow: CGFloat = 3
 let sectInset = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
+let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
 
 class GalleryViewController: UIViewController{
@@ -30,6 +31,13 @@ class GalleryViewController: UIViewController{
         }
        
     }
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        if UIDevice.current.orientation.isLandscape {
+            self.galleryCollectionView.reloadData()
+        } else {
+            self.galleryCollectionView.reloadData()
+        }
+    }
     
 }
 //MARK:- UICollectionViewDatasource
@@ -43,22 +51,49 @@ extension GalleryViewController : UICollectionViewDataSource{
      func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellIdentifier", for: indexPath)
         
-        if let imageObj = viewModel.getModelAt(index: indexPath.row) as Image?{
+        if let imageObj = viewModel.getModelAt(index: indexPath.row) as Image? {
             if let galleryCell = cell as? GalleryCell {
+                galleryCell.cellTag = imageObj.imageURL
                 galleryCell.titleLabel.text = imageObj.imageTitle
-                
-                if imageObj.imageURL != nil {
-                    galleryCell.imageView.downloadImageFrom(link: imageObj.imageURL!, contentMode: .scaleAspectFit)
+                galleryCell.imageView.image = #imageLiteral(resourceName: "NoImage")
 
+                if let imageURL = imageObj.imageURL as String?{
+                if let cachedImage = appDelegate.imageCache.object(forKey: imageURL as NSString) as UIImage? {
+                        
+                        galleryCell.imageView.image = cachedImage
+                        
+                    }
+                    else{
+                     let task =   URLSession.shared.dataTask( with: NSURL(string:imageURL)! as URL, completionHandler: {
+ 
+                            (data, response, error) -> Void in
+                            DispatchQueue.main.async {
+                                if let data1 = data as Data?{
+                                    if let image = UIImage(data:data1) as UIImage?{
+                                    appDelegate.imageCache.setObject(image, forKey: imageURL as NSString )
+                                        if galleryCell.cellTag == imageURL {
+                                            galleryCell.imageView.image = UIImage(data: data1)
+                                            galleryCell.imageView.contentMode = .scaleAspectFit
+                                        }
+
+                                    }
+                                    
+                                }
+                            }
+                        }
+                    )
+                    task.resume()
                 }
-                
+            }
         }
         cell.layer.masksToBounds = true
         cell.layer.cornerRadius = kCornerRadius;
         return cell
-    }
+        }
     }
 }
+    
+    
 //MARK:- UICollectionViewDelegateFlowLayout
 
 extension GalleryViewController : UICollectionViewDelegateFlowLayout {

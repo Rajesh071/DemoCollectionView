@@ -12,6 +12,7 @@ class GalleryCell: UICollectionViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
+    var cellTag:String?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -10,6 +10,7 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    let imageCache = NSCache<NSString, UIImage>()
 
     var window: UIWindow?
 
