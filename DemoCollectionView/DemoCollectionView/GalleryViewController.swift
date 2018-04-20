@@ -85,5 +85,8 @@ extension GalleryViewController : UICollectionViewDelegateFlowLayout {
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return sectInset.left
     }
+    
 }
+
+
 
