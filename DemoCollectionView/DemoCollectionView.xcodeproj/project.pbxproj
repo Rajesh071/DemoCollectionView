@@ -17,6 +17,7 @@
 		A52FDBD820887E8900DD73D3 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52FDBD720887E8900DD73D3 /* ViewModel.swift */; };
 		A52FDBDA20887F2300DD73D3 /* ImageClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52FDBD920887F2300DD73D3 /* ImageClient.swift */; };
 		A52FDBDC2088A76900DD73D3 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52FDBDB2088A76900DD73D3 /* Image.swift */; };
+		A5C95226208DAE9300F91158 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C95225208DAE9300F91158 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		A52FDBD720887E8900DD73D3 /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		A52FDBD920887F2300DD73D3 /* ImageClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageClient.swift; sourceTree = "<group>"; };
 		A52FDBDB2088A76900DD73D3 /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		A5C95225208DAE9300F91158 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 			children = (
 				A504B1D82085DE3B0049D3E7 /* AppDelegate.swift */,
 				A504B1DA2085DE3B0049D3E7 /* GalleryViewController.swift */,
+				A5C95225208DAE9300F91158 /* DetailViewController.swift */,
 				A52FDBD720887E8900DD73D3 /* ViewModel.swift */,
 				A52FDBDB2088A76900DD73D3 /* Image.swift */,
 				A52FDBD920887F2300DD73D3 /* ImageClient.swift */,
@@ -158,6 +161,7 @@
 				A504B1DB2085DE3B0049D3E7 /* GalleryViewController.swift in Sources */,
 				A52FDBDA20887F2300DD73D3 /* ImageClient.swift in Sources */,
 				A504B1D92085DE3B0049D3E7 /* AppDelegate.swift in Sources */,
+				A5C95226208DAE9300F91158 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

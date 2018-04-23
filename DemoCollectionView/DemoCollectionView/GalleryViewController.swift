@@ -58,6 +58,7 @@ extension GalleryViewController : UICollectionViewDataSource{
                 galleryCell.imageView.image = #imageLiteral(resourceName: "NoImage")
 
                 if let imageURL = imageObj.imageURL as String?{
+                //fetch the image if it is in the cache
                 if let cachedImage = appDelegate.imageCache.object(forKey: imageURL as NSString) as UIImage? {
                         
                         galleryCell.imageView.image = cachedImage
@@ -69,6 +70,7 @@ extension GalleryViewController : UICollectionViewDataSource{
                             (data, response, error) -> Void in
                             DispatchQueue.main.async {
                                 if let data1 = data as Data?{
+                                    //Load/Save the image in the cache
                                     if let image = UIImage(data:data1) as UIImage?{
                                     appDelegate.imageCache.setObject(image, forKey: imageURL as NSString )
                                         if galleryCell.cellTag == imageURL {
