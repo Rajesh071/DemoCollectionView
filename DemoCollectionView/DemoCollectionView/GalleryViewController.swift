@@ -9,7 +9,7 @@
 import UIKit
 let kCornerRadius:CGFloat = 6.0
 let itemPerRow: CGFloat = 3
-let sectInset = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
+let sectInset = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 30.0, right: 20.0)
 let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
 
@@ -32,11 +32,21 @@ class GalleryViewController: UIViewController{
        
     }
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        //Resizing cell but image will be loaded from cached if cahced already
         if UIDevice.current.orientation.isLandscape {
             self.galleryCollectionView.reloadData()
         } else {
             self.galleryCollectionView.reloadData()
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            var indexpath = sender as! IndexPath
+            if let imageObj = viewModel.getModelAt(index: indexpath.row) as Image?{
+            let vc = segue.destination as! DetailViewController
+            vc.imageModel = imageObj
+            }
+        
     }
     
 }
@@ -94,6 +104,16 @@ extension GalleryViewController : UICollectionViewDataSource{
         }
     }
 }
+//MARK:- UICollectionViewDelegate
+
+extension GalleryViewController:UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "DetailViewController", sender: indexPath)
+    }
+    
+}
+
     
     
 //MARK:- UICollectionViewDelegateFlowLayout
