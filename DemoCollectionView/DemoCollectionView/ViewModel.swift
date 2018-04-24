@@ -31,4 +31,7 @@ class ViewModel: NSObject {
         }
         return Image()
     }
+    func removeCacheImages(){
+        images?.removeAll()
+    }
 }

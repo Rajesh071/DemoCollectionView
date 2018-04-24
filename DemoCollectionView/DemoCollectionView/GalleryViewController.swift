@@ -25,20 +25,13 @@ class GalleryViewController: UIViewController{
         super.viewDidLoad()
         self.title = "Gallery"
         self.galleryCollectionView.register(UINib.init(nibName: "GalleryCell", bundle: nil), forCellWithReuseIdentifier: "cellIdentifier")
-        viewModel.fetchData {
-            DispatchQueue.main.async {
-                self.galleryCollectionView.reloadData()
-            }
-        }
+        reloadTableViewData()
        
     }
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         //Resizing cell but image will be loaded from cached if cahced already
-        if UIDevice.current.orientation.isLandscape {
-            self.galleryCollectionView.reloadData()
-        } else {
-            self.galleryCollectionView.reloadData()
-        }
+        self.galleryCollectionView.reloadData()
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -49,17 +42,29 @@ class GalleryViewController: UIViewController{
             }
         
     }
+
     @IBAction func onRefreshPressed(_ sender: Any) {
         appDelegate.imageCache.removeAllObjects()
-        galleryCollectionView.isHidden=true
-        viewModel.fetchData {
-            DispatchQueue.main.async {
-                self.galleryCollectionView.isHidden=false
-                self.galleryCollectionView.reloadData()
-            }
-        }
+        viewModel.removeCacheImages()
+        self.galleryCollectionView.reloadData()
+        reloadTableViewData()
+       
+    
     }
     
+}
+// MARK:- Fetch Data From Server
+
+extension GalleryViewController {
+    
+    func reloadTableViewData(){
+    viewModel.fetchData {
+        DispatchQueue.main.async {
+            self.galleryCollectionView.reloadData()
+            
+        }
+    }
+   }
 }
 //MARK:- UICollectionViewDatasource
 

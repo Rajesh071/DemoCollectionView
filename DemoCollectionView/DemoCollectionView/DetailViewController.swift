@@ -7,11 +7,10 @@
 //
 
 import UIKit
+let kStatusBarHeight:CGFloat = 20.0
 
 class DetailViewController: UIViewController {
     
-    @IBOutlet weak var stackView: UIStackView!
-    @IBOutlet weak var noImageView: UIImageView!
     @IBOutlet weak var descText: UILabel!
     @IBOutlet weak var detailImageView: UIImageView!
     var imageModel: Image?
@@ -29,10 +28,13 @@ class DetailViewController: UIViewController {
             }
         }
         else {
-            noImageView.image = #imageLiteral(resourceName: "NoImage")
+            detailImageView.image = #imageLiteral(resourceName: "NoImage")
 
         }
         
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        self.resizeSubViews()
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,30 +45,23 @@ class DetailViewController: UIViewController {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: nil, completion: {
             _ in
-            print("xxx")
-            if UIDevice.current.orientation.isLandscape {
-                self.detailImageView.frame = CGRect(x: self.view.frame.origin.x, y: ((appDelegate.window?.frame.size.height)!-(appDelegate.window?.frame.size.height)!/2)/2, width: 0.3 * self.view.frame.size.width, height: self.view.frame.size.height/2)
-                self.descText.frame = CGRect(x:self.detailImageView.frame.size.width+10,y:self.detailImageView.frame.origin.y,width:((appDelegate.window?.frame.size.width)!-(self.detailImageView.frame.width)),height:self.detailImageView.frame.size.height)
-            } else {
-                self.detailImageView.frame = CGRect(x: ((appDelegate.window?.frame.size.width)!-self.view.frame.size.width/2)/2, y: 64
-                    , width: self.view.frame.size.width/2, height: self.view.frame.size.width/2)
-                self.descText.frame = CGRect(x:0,y:self.detailImageView.frame.origin.y+self.detailImageView.frame.size.height,width:(appDelegate.window?.frame.size.width)!,height:self.detailImageView.frame.size.height)
-
-            }
+            self.resizeSubViews()
 
             
         })        
     }
     
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func resizeSubViews(){
+        if UIDevice.current.orientation.isLandscape {
+            self.detailImageView.frame = CGRect(x: self.view.frame.origin.x, y: ((appDelegate.window?.frame.size.height)!-(appDelegate.window?.frame.size.height)!/2)/2, width: 0.3 * self.view.frame.size.width, height: self.view.frame.size.height/2)
+            self.descText.frame = CGRect(x:self.detailImageView.frame.size.width+10,y:self.detailImageView.frame.origin.y,width:((appDelegate.window?.frame.size.width)!-(self.detailImageView.frame.width)),height:self.detailImageView.frame.size.height+kStatusBarHeight)
+        } else {
+            self.detailImageView.frame = CGRect(x: ((appDelegate.window?.frame.size.width)!-self.view.frame.size.width/2)/2, y: 64
+                , width: self.view.frame.size.width/2, height: self.view.frame.size.width/2)
+            self.descText.frame = CGRect(x:0,y:self.detailImageView.frame.origin.y+self.detailImageView.frame.size.height+kStatusBarHeight,width:(appDelegate.window?.frame.size.width)!,height:self.detailImageView.frame.size.height)
+            
+        }
     }
-    */
 
 }
