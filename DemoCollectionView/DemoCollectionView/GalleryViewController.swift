@@ -18,6 +18,7 @@ class GalleryViewController: UIViewController{
     @IBOutlet var viewModel: ViewModel!
     @IBOutlet weak var galleryCollectionView: UICollectionView!
     
+    @IBOutlet weak var refreshCache: UIBarButtonItem!
     
 
     override func viewDidLoad() {
@@ -47,6 +48,16 @@ class GalleryViewController: UIViewController{
             vc.imageModel = imageObj
             }
         
+    }
+    @IBAction func onRefreshPressed(_ sender: Any) {
+        appDelegate.imageCache.removeAllObjects()
+        galleryCollectionView.isHidden=true
+        viewModel.fetchData {
+            DispatchQueue.main.async {
+                self.galleryCollectionView.isHidden=false
+                self.galleryCollectionView.reloadData()
+            }
+        }
     }
     
 }
